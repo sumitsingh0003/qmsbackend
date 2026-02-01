@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema(
   {
     name: String,
-    email: { type: String, unique: true },
-    mobile: String,
+    email: { type: String, unique: true, sparse: true },
+    mobile: { type: String, unique: true, sparse: true },
     password: String,
     role: {
       type: String,
@@ -12,7 +12,9 @@ const userSchema = new mongoose.Schema(
       default: "USER"
     },
     adminId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    isActive: { type: Boolean, default: true }
+
+    // 🔐 For logout & token control
+    refreshToken: { type: String }
   },
   { timestamps: true }
 );
