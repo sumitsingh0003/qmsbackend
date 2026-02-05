@@ -25,11 +25,15 @@ exports.createReport = async (req, res, next) => {
 exports.getReports = async (req, res, next) => {
   try {
     const reports = await Report.find();
-    res.json(reports);
+    res.json({
+      success: true,
+      reports
+    });
   } catch (err) {
     next(err);
   }
 };
+
 
 exports.getSingleReport = async (req, res, next) => {
   try {
@@ -62,21 +66,29 @@ exports.deleteReport = async (req, res, next) => {
       });
     }
 
-    // 🧹 Delete images from uploads folder
+    // 🔐 Authorization
+    // if (
+    //   report.createdBy.toString() !== req.user.id &&
+    //   !["SUPER_ADMIN", "ADMIN"].includes(req.user.role)
+    // ) {
+    //   return res.status(403).json({
+    //     success: false,
+    //     message: "Not authorized to delete this report"
+    //   });
+    // }
+
+    // 🧹 Delete images
     if (report.reportImages?.length) {
       report.reportImages.forEach(imageUrl => {
         const imagePath = imageUrl.split("/uploads/")[1];
+        if (!imagePath) return;
 
-        if (imagePath) {
-          const fullPath = path.join(
-            process.cwd(),
-            "uploads",
-            imagePath
-          );
+        const fullPath = path.join(process.cwd(), "uploads", imagePath);
 
-          if (fs.existsSync(fullPath)) {
-            fs.unlinkSync(fullPath);
-          }
+        if (fs.existsSync(fullPath)) {
+          fs.unlink(fullPath, err => {
+            if (err) console.error("Image delete error:", err);
+          });
         }
       });
     }
