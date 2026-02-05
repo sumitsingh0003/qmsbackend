@@ -2,7 +2,10 @@ const Report = require("../models/Report.model");
 
 exports.createReport = async (req, res, next) => {
   try {
-    const images = req.files?.map(f => f.path) || [];
+    const images =
+      req.files?.map(file => {
+        return `${req.protocol}://${req.get("host")}/uploads/${file.filename}`;
+      }) || [];
 
     const report = await Report.create({
       ...req.body,
@@ -15,6 +18,7 @@ exports.createReport = async (req, res, next) => {
     next(err);
   }
 };
+
 
 exports.getReports = async (req, res, next) => {
   try {
