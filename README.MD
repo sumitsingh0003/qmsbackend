@@ -32,38 +32,6 @@ This system supports **multiple admins**, **multiple vendors per admin**, **role
 
 ---
 
-## 📁 Project Folder Structure
-qms-backend/
-├── src/
-│ ├── config/
-│ │ └── db.js
-│ ├── controllers/
-│ │ ├── auth.controller.js
-│ │ ├── vendor.controller.js
-│ │ └── report.controller.js
-│ ├── middlewares/
-│ │ ├── auth.middleware.js
-│ │ ├── role.middleware.js
-│ │ ├── upload.middleware.js
-│ │ └── error.middleware.js
-│ ├── models/
-│ │ ├── User.model.js
-│ │ ├── Vendor.model.js
-│ │ └── Report.model.js
-│ ├── routes/
-│ │ ├── auth.routes.js
-│ │ ├── vendor.routes.js
-│ │ └── report.routes.js
-│ ├── app.js
-│ └── server.js
-├── uploads/
-├── .env
-├── package.json
-└── README.md
-
-
----
-
 ## ⚙️ Tech Stack
 
 - **Backend:** Node.js, Express.js
@@ -105,23 +73,6 @@ Each quality report contains:
 
 ---
 
-## 🛠️ Environment Variables
-
-Create a `.env` file in root directory:
-
-```env
-PORT=5000
-MONGO_URI=mongodb://127.0.0.1:27017/qms
-JWT_SECRET=your_jwt_secret
-JWT_REFRESH_SECRET=your_refresh_secret
-JWT_EXPIRE=15m
-JWT_REFRESH_EXPIRE=7d
-
-
-
-
-
-
 Installation & Run
 # Install dependencies
 npm install
@@ -138,20 +89,6 @@ npm start
 Base URL
 http://localhost:5000/api
 
-
-
-
-
-
----
-
-## ✅ NEXT (Optional but Recommended)
-
-Agar aap chaho to main:
-- ✔️ **Postman Collection JSON** bana du
-- ✔️ **API documentation (Swagger)** add karwa du
-- ✔️ **Dockerfile + docker-compose** likh du
-- ✔️ **Deployment guide (AWS / VPS)** bana du
 
 Bas bolo 👍
 
